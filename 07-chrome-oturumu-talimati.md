@@ -1,27 +1,36 @@
 # 7. Chrome Oturumu Talimatı (DM gönderimi)
 
-Claude masaüstü uygulamasında, Claude in Chrome bağlıyken yeni bir sohbete aşağıdaki metni yapıştır. Köşeli parantezleri doldur.
+Claude masaüstü uygulamasında, Claude in Chrome bağlıyken yeni bir sohbete aşağıdaki metnin tamamını yapıştır. Değiştirmen gereken bir yer yok.
 
 ---
 
 ```
-Instagram'da yerel işletmelere hizmet satıyorum. esmerilc554/aa deposundaki
-kiti kullan (02 analiz listesi, 03 DM şablonları).
+Instagram'da Türkiye'deki küçük işletmelere uzaktan Instagram hizmeti
+satıyorum (profil düzenleme + aylık içerik paketi). Chrome'da Instagram
+hesabım açık. github.com/esmerilc554/aa deposundaki kiti kullan
+(claude/keen-babbage-uccnzp dalı): 02 analiz listesi, 03 DM şablonları.
 
 Görev:
-1. Instagram'da [ŞEHİR / SEMT] bölgesindeki [SEKTÖR] işletme hesaplarını bul.
-2. Her hesaba 02 listesini uygula. 6 veya daha fazla "Hayır" çıkan 5 hesabı seç.
-3. Her biri için en büyük 3 eksiği ve 03'teki şablona göre kişiselleştirilmiş
-   ilk mesajı bana göster.
+1. Instagram'da Türkiye'nin herhangi bir ilinden işletme hesapları bul.
+   Sektörleri gün gün sırayla değiştir: kuaför/güzellik salonu, kafe,
+   butik, diş/estetik klinik, emlak. Aramalar için #[il]kuaför,
+   #[il]kafe, #[il]butik gibi hashtag'leri kullan.
+2. Her hesaba 02 listesini uygula. 6 veya daha fazla "Hayır" çıkan,
+   son 6 ay içinde paylaşım yapmış 5 hesap seç.
+3. Her biri için en büyük 3 eksiği ve 03'teki şablona göre
+   kişiselleştirilmiş ilk mesajı bana göster.
 4. Onayladığım mesajları gönder:
    - Günde en fazla 5 mesaj
    - Mesajlar arasında 30 dakika bekle
    - Göndermeden önce o hesabın 1–2 gönderisini beğen
    - Onaylamadığım hiçbir mesajı gönderme
    - Sadece işletme hesaplarına yaz, kişisel hesaplara yazma
+   - Daha önce mesaj attığım hesaplara tekrar ilk mesaj atma
    - İlk mesajda fiyat veya link verme
+   - Uzaktan çalıştığım için yerinde çekim (Reels çekimi) teklif etme
 5. Her gönderimden sonra takip tablosunu güncelle:
-   tarih, @hesap, sektör, 3 eksik, gönderim saati.
+   tarih, @hesap, il, sektör, 3 eksik, gönderim saati.
+6. Gelen cevapları bana göster. Cevap metnini birlikte yazalım.
 ```
 
 ---
