@@ -12,6 +12,7 @@ Küçük yerel işletmelere (kafe, kuaför, güzellik salonu, klinik, emlak, but
 | 4 | [Ücretsiz mini analiz şablonu](04-ucretsiz-analiz-sablonu.md) | İşletmeye gönderdiğin "3 maddelik iyileştirme listesi" |
 | 5 | [İçerik örnekleri](05-icerik-ornekleri.md) | Sektör sektör gönderi açıklamaları, Reels kancaları, hashtag'ler |
 | 6 | [Kendi hesabın ve günlük rutin](06-kendi-hesabin-ve-rutin.md) | Kendi tanıtım hesabını kurmak, her gün ne yapacağın |
+| 7 | [Chrome oturumu talimatı](07-chrome-oturumu-talimati.md) | Claude'un DM göndermesi için yapıştırılacak hazır metin (günde 5 mesaj, 30 dk arayla) |
 
 ## En hızlı başlangıç (bugün)
 
