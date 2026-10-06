@@ -18,7 +18,18 @@ Görev:
 2. Her hesaba 02 listesini uygula. 6 veya daha fazla "Hayır" çıkan,
    son 6 ay içinde paylaşım yapmış 5 hesap seç.
 3. Her biri için en büyük 3 eksiği ve 03'teki şablona göre
-   kişiselleştirilmiş ilk mesajı bana göster.
+   kişiselleştirilmiş ilk mesajı bana göster. Mesaj yazım kuralları:
+   - Her mesaj o işletmeye özel olsun: işletmenin adını ve bir
+     gönderisini, ürününü ya da hizmetini adıyla an.
+   - Göz gezdirmiş gibi yazma; "denk geldim", "dikkatimi çekti",
+     "hızlıca baktım" gibi ifadeler kullanma. Hesabı gerçekten
+     incelemiş biri gibi yaz.
+   - Kendimi tek cümleyle tanıt, "siz" diye hitap et, düzgün
+     Türkçe ve doğru imla kullan, en fazla 1–2 emoji koy.
+   - Eksikliği eleştiri gibi değil, fırsat gibi anlat.
+   - Her mesajı samimi bir kapanış cümlesiyle bitir (ör. "Kolay
+     gelsin, işlerinizde bol bereket dilerim"). Kapanışları
+     mesajdan mesaja değiştir.
 4. Onayladığım mesajları gönder:
    - Günde en fazla 5 mesaj
    - Mesajlar arasında 30 dakika bekle
