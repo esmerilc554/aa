@@ -135,12 +135,24 @@ Ayrıca **Marketing › Sales and discounts › Abandoned cart** ile sepette bı
 | Kostüm yarışması ayrı satılıyor | Oy pusulası + 6 ödül sertifikası dahil |
 | Marka adı riski (Scattergories, Pictionary vb.) | Özgün isimler: Spooky Categories, Pumpkin Draw & Guess |
 
-## 8. Dosyaları yeniden üretmek
+## 8. Tek tek satış: 15 ayrı ürün
+
+Her oyun ayrıca kendi PDF'i, fotoğrafları ve İngilizce listing metniyle `output/games/` altında hazır. Fiyat tablosu ve yükleme rehberi: [`output/games/README.md`](output/games/README.md).
+
+## 9. Dosyaları yeniden üretmek
 
 ```bash
-node src/build.mjs                      # PDF'ler (Letter + A4)
-python3 -c "import pypdfium2 as p; d=p.PdfDocument('output/15-Halloween-Party-Games-US-Letter.pdf'); [d[i].render(scale=1.6).to_pil().save(f'src/_pages/p{i+1:02d}.png') for i in range(len(d))]"
-node src/listing.mjs                    # Etsy fotoğrafları + reklam görselleri
+node src/build.mjs     # bundle PDF + 15 tekli PDF (Letter + A4) + her ürünün listing.md'si
+python3 - <<'EOF'      # sayfa önizlemeleri (görseller için)
+import pypdfium2 as p, glob, json, os
+d=p.PdfDocument('output/15-Halloween-Party-Games-US-Letter.pdf')
+for i in range(len(d)): d[i].render(scale=1.6).to_pil().save(f'src/_pages/p{i+1:02d}.png')
+for g in glob.glob('output/games/*/info.json'):
+    info=json.load(open(g)); out=f"src/_pages/{info['slug']}"; os.makedirs(out,exist_ok=True)
+    d=p.PdfDocument(os.path.dirname(g)+f"/{info['slug']}-US-Letter.pdf")
+    for i in range(len(d)): d[i].render(scale=1.6).to_pil().save(f'{out}/p{i+1:02d}.png')
+EOF
+node src/listing.mjs   # bundle + 15 ürünün Etsy fotoğrafları, reklam görselleri
 ```
 
 İçerik (sorular, kartlar) `src/content.mjs` dosyasında; değiştirip yeniden üretebilirsin.

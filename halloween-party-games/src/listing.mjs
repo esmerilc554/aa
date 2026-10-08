@@ -4,6 +4,7 @@ import { chromium } from '/opt/node-tools/node_modules/playwright/index.mjs';
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readFileSync, readdirSync } from 'node:fs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'output', 'etsy-images');
@@ -166,16 +167,88 @@ const ads = {
 
 const browser = await chromium.launch();
 const page = await browser.newPage({ deviceScaleFactor: 2 });
-async function shoot(name, w, h, body) {
+async function shoot(name, w, h, body, outPath = join(OUT, `${name}.png`)) {
   const file = join(ROOT, 'src', `_shot.html`);
   writeFileSync(file, `<!doctype html><html><head><meta charset="utf-8"><style>${CSS}</style></head><body>${body}</body></html>`);
   await page.setViewportSize({ width: w, height: h });
   await page.goto('file://' + file);
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(150);
-  await page.screenshot({ path: join(OUT, `${name}.png`), clip: { x: 0, y: 0, width: w, height: h } });
-  console.log('wrote', name);
+  const jpg = outPath.endsWith('.jpg');
+  await page.screenshot({ path: outPath, clip: { x: 0, y: 0, width: w, height: h }, ...(jpg ? { type: 'jpeg', quality: 90 } : {}) });
+  console.log('wrote', outPath.replace(ROOT + '/', ''));
 }
 for (const [name, body] of Object.entries(shots)) await shoot(name, W, H, body);
 for (const [name, [w, h, body]] of Object.entries(ads)) await shoot(name, w, h, body);
+
+// ---------- single-game listing photos ----------
+const AGE = { K: 'Kids', T: 'Teens', A: 'Adults' };
+const sp = (slug, n, rot = 0, w = 300, extra = '') =>
+  `<img class="pg" src="_pages/${slug}/p${String(n).padStart(2, '0')}.png" style="width:${w}px;transform:rotate(${rot}deg);${extra}">`;
+const gamesDir = join(ROOT, 'output', 'games');
+for (const dir of readdirSync(gamesDir).sort()) {
+  const info = JSON.parse(readFileSync(join(gamesDir, dir, 'info.json'), 'utf8'));
+  const { slug, name, pages: count, ages, includes, hook } = info;
+  const imgDir = join(gamesDir, dir, 'etsy-images');
+  mkdirSync(imgDir, { recursive: true });
+  const gp = Array.from({ length: count - 2 }, (_, i) => i + 2); // game pages (no cover / thank-you)
+  const big = name.length > 26 ? 52 : name.length > 18 ? 62 : 72;
+  const pills = `<div class="row" style="flex-wrap:wrap;gap:10px">${ages.split('').map((a) => `<span class="ob">${AGE[a].toUpperCase()}</span>`).join('')}<span class="ob">${count} PAGES</span></div>`;
+
+  const hero = `<div class="c" style="width:${W}px;height:${H}px">
+    <div class="glow" style="width:900px;height:900px;right:-300px;top:-200px"></div>
+    <div class="abs" style="left:56px;top:56px;width:440px;display:flex;flex-direction:column;gap:20px">
+      <div class="row">${badge('INSTANT DOWNLOAD')}</div>
+      <div class="k">Printable Halloween Game</div>
+      <h1 style="font-size:${big}px">${name}</h1>
+      <div style="font-size:23px;color:#DCCFE6;line-height:1.4">${hook}</div>
+      ${pills}
+    </div>
+    ${gp[1] ? `<div class="abs" style="left:700px;top:50px">${sp(slug, gp[1], 7, 260)}</div>` : ''}
+    <div class="abs" style="left:${gp[1] ? 560 : 610}px;top:${gp[1] ? 190 : 120}px">${sp(slug, gp[0], -4, gp[1] ? 330 : 350)}</div>
+    <div class="abs" style="left:40px;bottom:-140px;opacity:0">.</div>
+  </div>`;
+
+  const cols = gp.length >= 5 ? 3 : gp.length >= 2 ? 2 : 1;
+  const shown = gp.slice(0, cols === 3 ? 9 : 4);
+  const tw = cols === 3 ? 150 : cols === 2 ? 220 : 300;
+  const inside = `<div class="c" style="width:${W}px;height:${H}px;padding:52px 56px;display:flex;gap:40px">
+    <div style="flex:0 0 330px;display:flex;flex-direction:column;gap:18px">
+      <h2 style="font-size:48px">What's inside</h2>
+      <div class="k">${count} pages · Letter + A4</div>
+      <div style="display:flex;flex-direction:column;gap:14px;font-size:21px;line-height:1.35">${[...includes, 'Easy "How to play" rules', 'US Letter + A4 files'].map((t) => `<div style="display:flex;gap:10px;align-items:flex-start"><span style="flex:none;margin-top:2px">${check}</span><span>${t}</span></div>`).join('')}</div>
+    </div>
+    <div style="flex:1;min-width:0;display:grid;grid-template-columns:repeat(${cols},${tw}px);gap:16px;align-content:center;justify-content:center">
+      ${shown.map((n) => sp(slug, n, 0, tw, 'box-shadow:0 8px 18px rgba(0,0,0,.4)')).join('')}
+      ${gp.length > shown.length ? `<div style="font-family:Fredoka;font-weight:600;font-size:20px;grid-column:1/-1;text-align:center">+ ${gp.length - shown.length} more pages</div>` : ''}
+    </div>
+  </div>`;
+
+  const size = `<div class="c" style="width:${W}px;height:${H}px">
+    <div class="abs" style="left:56px;top:64px;width:340px;display:flex;flex-direction:column;gap:22px">
+      <div class="k">Full-size printing</div>
+      <h2 style="font-size:50px">Prints on a full sheet of paper</h2>
+      <div style="font-size:23px;line-height:1.5;color:#DCCFE6">Every page fills the whole page. Big, clear text and cards that are easy to cut out.</div>
+      <div style="display:flex;flex-direction:column;gap:12px;font-family:Fredoka;font-weight:600;font-size:24px">
+        <div style="display:flex;gap:12px;align-items:center">${check} US Letter · 8.5 × 11 in</div>
+        <div style="display:flex;gap:12px;align-items:center">${check} A4 · 210 × 297 mm</div>
+      </div>
+      <div style="font-size:19px;color:#B9AEC2">Both files are included in your download.</div>
+    </div>
+    <div class="abs" style="left:470px;top:56px;width:500px;height:688px">
+      ${sp(slug, gp[0], 0, 520, 'width:auto;height:640px;position:absolute;left:0;top:0')}
+      <div class="abs" style="left:-34px;top:0;height:640px;border-left:3px solid #F07F2E"></div>
+      <div class="abs" style="left:-78px;top:300px;transform:rotate(-90deg);font-family:Fredoka;font-weight:600;font-size:20px;color:#F07F2E;white-space:nowrap">11 in · 297 mm</div>
+      <div class="abs" style="left:0;top:660px;width:495px;border-top:3px solid #F07F2E"></div>
+      <div class="abs" style="left:0;top:668px;width:495px;text-align:center;font-family:Fredoka;font-weight:600;font-size:20px;color:#F07F2E">8.5 in · 210 mm</div>
+    </div>
+  </div>`;
+
+  const how = shots['10-how'].replace('Party-ready in 5 minutes', 'Ready to play in 5 minutes').replace('Follow a party plan', 'Rules are on the page');
+
+  await shoot(`${slug}-01-hero`, W, H, hero, join(imgDir, '01-hero.jpg'));
+  await shoot(`${slug}-02-inside`, W, H, inside, join(imgDir, '02-inside.jpg'));
+  await shoot(`${slug}-03-size`, W, H, size, join(imgDir, '03-size.jpg'));
+  await shoot(`${slug}-04-how`, W, H, how, join(imgDir, '04-how.jpg'));
+}
 await browser.close();

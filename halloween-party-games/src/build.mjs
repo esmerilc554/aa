@@ -6,6 +6,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ICONS, icon } from './icons.mjs';
 import * as C from './content.mjs';
+import { GAMES_META } from './games-meta.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'output');
@@ -34,7 +35,8 @@ const pills = (ages) => ages.split('').map((a) => `<span class="pill pill-${a}">
 const pages = [];   // { html, game }
 const games = [];   // { n, title, ages, page }
 
-function page(body, { game = null, cls = '' } = {}) {
+let current = null;
+function page(body, { game = current, cls = '' } = {}) {
   pages.push({ body, game, cls });
 }
 function header(n, title, ages, sub = '') {
@@ -50,6 +52,7 @@ function rules(steps) {
 function startGame(title, ages) {
   const n = games.length + 1;
   games.push({ n, title, ages, page: null, idx: pages.length });
+  current = n;
   return n;
 }
 
@@ -96,7 +99,7 @@ function startGame(title, ages) {
     ${list(C.TRIVIA_KIDS)}`, { game: n });
   page(`${header(n, 'Halloween Trivia · Grown-Ups Round', 'TA', '15 questions for teens, adults and office parties')}
     ${list(C.TRIVIA_ADULTS)}
-    <div class="tip">Bonus round idea: for a tie-breaker, ask "How many pieces of candy are in the jar?" (Game 14). Closest wins.</div>`, { game: n });
+    <div class="tip">Tie-breaker idea: ask "How many pieces of candy are in this bowl?" The closest guess wins.</div>`, { game: n });
   page(`${header(n, 'Trivia Answer Sheet', '', 'Print one per team')}
     <div class="ansheet">${[0, 1].map(() => `<div class="ans-col"><div class="field">Team name: <span class="line"></span></div>
       ${Array.from({ length: 15 }, (_, i) => `<div class="ans-row"><b>${i + 1}.</b><span class="line"></span></div>`).join('')}
@@ -292,30 +295,51 @@ function searchGrid(s, key = false) {
 }
 
 // ---------- Answer keys ----------
+current = null;
+const keyTrivia = `<div><div class="sec-t">Trivia · Kids Round</div><ol class="klist">${C.TRIVIA_KIDS.map(([, a]) => `<li>${esc(a)}</li>`).join('')}</ol></div>
+    <div><div class="sec-t">Trivia · Grown-Ups Round</div><ol class="klist">${C.TRIVIA_ADULTS.map(([, a]) => `<li>${esc(a)}</li>`).join('')}</ol></div>`;
+const keyScramble = `<div><div class="sec-t">Word Scramble</div><ol class="klist">${scrambled.map(([, w]) => `<li>${w}</li>`).join('')}</ol></div>`;
+const keySearch = `${header(0, 'Answer Keys', '', 'Haunted Word Search')}
+  <div class="keys2">${searches.map(([t, s, size]) => `<div><div class="sec-t">${t}</div><div class="ws-wrap ${size === 9 ? 'ws-key-easy' : 'ws-key'}">${searchGrid(s, true)}</div></div>`).join('')}</div>`;
+// Answer-key pages used by the single-game editions, keyed by game number.
+const SINGLE_KEYS = {
+  2: [`${header(0, 'Answer Key', '', 'Halloween Trivia')}<div class="keys" style="grid-template-columns:repeat(2,minmax(0,1fr))">${keyTrivia}</div>`],
+  6: [`${header(0, 'Answer Key', '', 'Monster Word Scramble')}<div class="keys" style="grid-template-columns:minmax(0,1fr)">${keyScramble}</div>`],
+  7: [keySearch],
+};
 const keyStart = pages.length;
 page(`${header(0, 'Answer Keys', '', 'Trivia · Word Scramble')}
-  <div class="keys">
-    <div><div class="sec-t">Trivia · Kids Round</div><ol class="klist">${C.TRIVIA_KIDS.map(([, a]) => `<li>${esc(a)}</li>`).join('')}</ol></div>
-    <div><div class="sec-t">Trivia · Grown-Ups Round</div><ol class="klist">${C.TRIVIA_ADULTS.map(([, a]) => `<li>${esc(a)}</li>`).join('')}</ol></div>
-    <div><div class="sec-t">Word Scramble</div><ol class="klist">${scrambled.map(([s, w]) => `<li>${w}</li>`).join('')}</ol></div>
-  </div>`);
-page(`${header(0, 'Answer Keys', '', 'Haunted Word Search')}
-  <div class="keys2">${searches.map(([t, s, size]) => `<div><div class="sec-t">${t}</div><div class="ws-wrap ${size === 9 ? 'ws-key-easy' : 'ws-key'}">${searchGrid(s, true)}</div></div>`).join('')}</div>`);
+  <div class="keys">${keyTrivia}${keyScramble}</div>`);
+page(keySearch);
 
 // ---------- Scoreboard + thank you ----------
 page(`${header(0, 'Monster Scoreboard', '', 'Keep score across all games · the team with the most points wins the night')}
   <table class="score"><thead><tr><th>Game</th>${[1, 2, 3, 4].map((t) => `<th>Team ${t}<br><span class="line"></span></th>`).join('')}</tr></thead>
   <tbody>${games.map((g) => `<tr><td>${g.n}. ${esc(g.title)}</td><td></td><td></td><td></td><td></td></tr>`).join('')}
   <tr class="tot"><td>TOTAL</td><td></td><td></td><td></td><td></td></tr></tbody></table>`);
-const thanksIdx = pages.length;
-page(`<div class="thanks">${icon('Pumpkin', 110)}
+const teamScore = `${header(0, 'Team Scoreboard', '', 'Up to 4 teams · the team with the most points wins')}
+  <table class="score"><thead><tr><th>Round</th>${[1, 2, 3, 4].map((t) => `<th>Team ${t}<br><span class="line"></span></th>`).join('')}</tr></thead>
+  <tbody>${Array.from({ length: 18 }, (_, i) => `<tr><td>Round ${i + 1}</td><td></td><td></td><td></td><td></td></tr>`).join('')}
+  <tr class="tot"><td>TOTAL</td><td></td><td></td><td></td><td></td></tr></tbody></table>`;
+const SINGLE_SCORE = new Set([4, 8]);
+
+function thanksPage(single) {
+  const more = single
+    ? `<div class="more"><div class="sec-t">More Halloween party games in our shop</div>
+      <div class="grid g3 mgrid">${games.filter((g) => g.n !== single).map((g) => `<div class="mcard"><b>${esc(GAMES_META[g.n].name)}</b></div>`).join('')}</div>
+      <div class="mcard" style="text-align:center;margin-top:2mm"><b>Want them all? Get the 15 Halloween Party Games Bundle</b><span>Hollow Lantern Studio · [YOUR ETSY SHOP LINK]</span></div></div>`
+    : `<div class="more"><div class="sec-t">Find more Halloween printables in our Etsy shop</div>
+      <div class="mcard" style="text-align:center"><b>Hollow Lantern Studio</b><span>[YOUR ETSY SHOP LINK]</span></div></div>`;
+  return `<div class="thanks">${icon('Pumpkin', single ? 80 : 110)}
   <h1>Thank you for partying with us!</h1>
   <p>We hope your guests laughed, screamed and ate way too much candy.</p>
   <div class="coupon"><div>Your next order</div><div class="cpn">20% OFF</div><div>Use code <b>THANKYOU20</b> at checkout</div></div>
-  <div class="more"><div class="sec-t">Find more Halloween printables in our Etsy shop</div>
-    <div class="mcard" style="text-align:center"><b>Hollow Lantern Studio</b><span>[YOUR ETSY SHOP LINK]</span></div></div>
+  ${more}
   <p class="small">Loved it? A quick review on Etsy helps our small shop more than you know.<br>
-  © Hollow Lantern Studio. For personal, classroom and private party use. Please do not share or resell the files.</p></div>`);
+  © Hollow Lantern Studio. For personal, classroom and private party use. Please do not share or resell the files.</p></div>`;
+}
+const thanksIdx = pages.length;
+page(thanksPage(null));
 
 // ---------- Front matter (built last so page numbers are known) ----------
 const FRONT = 4; // cover, welcome, host guide, quick-start
@@ -497,30 +521,129 @@ table{border-collapse:collapse;width:100%}
 .more{width:100%;display:flex;flex-direction:column;gap:2mm;align-items:center}.more .grid{gap:3mm;width:100%}
 .mcard{border:1.4px solid var(--line);border-radius:3mm;padding:3mm;display:flex;flex-direction:column;font-size:9pt;text-align:left}.mcard b{font-family:Fredoka;font-size:11pt}
 .small{font-size:8.5pt !important;color:var(--muted)}
+.cv-big .ico{width:62mm;height:62mm}
+.cv-k{font-weight:700;letter-spacing:.24em;text-transform:uppercase;font-size:14pt;color:#F07F2E}
+.cv-t-s{font-size:48pt;max-width:180mm}
+.cover .cv-s{font-size:16pt}
+.cv-pills{display:flex;gap:2.5mm;flex-wrap:wrap;justify-content:center}.cv-pills span{border:1.5px solid #F6EFE2;border-radius:99px;padding:1.4mm 5mm;font-weight:700;font-size:13pt}
+.cv-inc{display:flex;flex-direction:column;gap:2.5mm;font-size:14pt;color:#DCCFE6;max-width:170mm;margin-top:4mm}
+.mgrid{gap:2mm !important}.mgrid .mcard{padding:2mm 3mm}
 `;
 
-function html(size) {
+function html(docPages, size, product) {
   const dims = size === 'letter' ? ['215.9mm', '279.4mm'] : ['210mm', '297mm'];
   let pn = 0;
-  const body = all.map((p) => {
+  const body = docPages.map((p) => {
     pn++;
-    const foot = p.cls === 'p-cover' ? '' : `<div class="foot"><span>Hollow Lantern Studio · 15 Halloween Party Games</span><span>${pn}</span></div>`;
+    const foot = p.cls === 'p-cover' ? '' : `<div class="foot"><span>Hollow Lantern Studio · ${esc(product)}</span><span>${pn}</span></div>`;
     return `<section class="page ${p.cls || ''}">${p.body}${foot}</section>`;
   }).join('\n');
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>15 Halloween Party Games</title>
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${esc(product)}</title>
 <style>@page{size:${size === 'letter' ? 'letter' : 'A4'};margin:0}:root{--pw:${dims[0]};--ph:${dims[1]}}${css}</style></head><body>${body}</body></html>`;
 }
 
+// ---------- Single-game editions ----------
+function gameCover(g, m, pageCount) {
+  return `<div class="cover">
+  <div class="cv-top"><span>INSTANT DOWNLOAD</span><span>US Letter &amp; A4</span></div>
+  <div class="cv-icons cv-big">${icon(m.icon, 150)}</div>
+  <div class="cv-k">Printable Halloween Game</div>
+  <div class="cv-t cv-t-s">${esc(m.name)}</div>
+  <div class="cv-s">${esc(m.hook)}</div>
+  <div class="cv-pills">${g.ages.split('').map((a) => `<span>${AGE[a]}</span>`).join('')}<span>${pageCount} pages</span></div>
+  <div class="cv-inc">${m.includes.map((t) => `<div>${esc(t)}</div>`).join('')}</div>
+  <div class="cv-f">Hollow Lantern Studio</div>
+</div>`;
+}
+
+function singleDoc(g) {
+  const m = GAMES_META[g.n];
+  const body = pages.filter((p) => p.game === g.n).map((p) => ({
+    ...p, body: p.body.replace(/<div class="gnum">Game \d+<\/div>/, '<div class="gnum">Printable Halloween Game</div>'),
+  }));
+  const extra = [...(SINGLE_KEYS[g.n] || []), ...(SINGLE_SCORE.has(g.n) ? [teamScore] : [])].map((b) => ({ body: b }));
+  const count = 1 + body.length + extra.length + 1;
+  return { m, pages: [{ body: gameCover(g, m, count), cls: 'p-cover' }, ...body, ...extra, { body: thanksPage(g.n) }] };
+}
+
+function listingMd(g, m, count) {
+  return `# ${m.name}: Etsy listing
+
+**Price:** $${m.price} · **Pages:** ${count} · **Files to upload:** \`${m.slug}-US-Letter.pdf\` + \`${m.slug}-A4.pdf\`
+**Photos (in this order):** \`etsy-images/01-hero.jpg\`, \`02-inside.jpg\`, \`03-size.jpg\`, \`04-how.jpg\`
+
+## Title
+\`\`\`
+${m.title}
+\`\`\`
+
+## Tags
+\`\`\`
+${m.tags.join(', ')}
+\`\`\`
+
+## Description
+\`\`\`
+${m.hook}
+
+━━━━━━━━━━━━━━━━━━
+WHAT'S INCLUDED (${count} pages)
+━━━━━━━━━━━━━━━━━━
+${m.includes.map((t) => `✔ ${t}`).join('\n')}
+✔ Easy "How to play" rules on the page
+✔ US Letter AND A4 files
+
+Ages: ${g.ages.split('').map((a) => AGE[a]).join(', ')}
+
+━━━━━━━━━━━━━━━━━━
+HOW IT WORKS
+━━━━━━━━━━━━━━━━━━
+1. Purchase
+2. Download the PDF instantly (Etsy > Purchases and reviews)
+3. Print at home or at a print shop. Every page prints full size on US Letter or A4 paper.
+4. Cut out the cards (if any) and play!
+
+⚠ This is a DIGITAL product. Nothing will be shipped.
+
+━━━━━━━━━━━━━━━━━━
+WANT MORE GAMES?
+━━━━━━━━━━━━━━━━━━
+This game is part of our 15 Halloween Party Games Bundle. Get all 15 games for one low price in our shop!
+
+━━━━━━━━━━━━━━━━━━
+TERMS OF USE
+━━━━━━━━━━━━━━━━━━
+For personal, classroom and private party use. Print as many copies as you need for your own event.
+Please do not share, resell or redistribute the files.
+Because this is a digital download, refunds are not available, but if anything goes wrong, message us and we'll fix it fast!
+
+© Hollow Lantern Studio
+\`\`\`
+`;
+}
+
+async function render(browser, docPages, product, outBase) {
+  for (const size of ['letter', 'a4']) {
+    const file = join(ROOT, 'src', `_render-${size}.html`);
+    writeFileSync(file, html(docPages, size, product));
+    const pg = await browser.newPage();
+    await pg.goto('file://' + file);
+    await pg.evaluate(() => document.fonts.ready);
+    const out = `${outBase}-${size === 'letter' ? 'US-Letter' : 'A4'}.pdf`;
+    await pg.pdf({ path: out, preferCSSPageSize: true, printBackground: true });
+    await pg.close();
+  }
+  console.log('wrote', outBase, docPages.length, 'pages');
+}
+
 const browser = await chromium.launch();
-for (const size of ['letter', 'a4']) {
-  const file = join(ROOT, 'src', `_render-${size}.html`);
-  writeFileSync(file, html(size));
-  const pg = await browser.newPage();
-  await pg.goto('file://' + file);
-  await pg.evaluate(() => document.fonts.ready);
-  const out = join(OUT, `15-Halloween-Party-Games-${size === 'letter' ? 'US-Letter' : 'A4'}.pdf`);
-  await pg.pdf({ path: out, preferCSSPageSize: true, printBackground: true });
-  console.log('wrote', out, all.length, 'pages');
-  await pg.close();
+await render(browser, all, '15 Halloween Party Games', join(OUT, '15-Halloween-Party-Games'));
+for (const g of games) {
+  const { m, pages: doc } = singleDoc(g);
+  const dir = join(OUT, 'games', `${String(g.n).padStart(2, '0')}-${m.slug}`);
+  mkdirSync(dir, { recursive: true });
+  await render(browser, doc, m.name, join(dir, m.slug));
+  writeFileSync(join(dir, 'listing.md'), listingMd(g, m, doc.length));
+  writeFileSync(join(dir, 'info.json'), JSON.stringify({ n: g.n, ages: g.ages, pages: doc.length, ...m }, null, 2));
 }
 await browser.close();
