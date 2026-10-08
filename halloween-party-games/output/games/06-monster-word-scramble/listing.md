@@ -1,19 +1,32 @@
-# Monster Word Scramble: Etsy listing
+# Etsy listing (CemEsmeroglo)
 
-**Price:** $1.99 · **Pages:** 4 · **Files to upload:** `monster-word-scramble-US-Letter.pdf` + `monster-word-scramble-A4.pdf`
-**Photos (in this order):** `etsy-images/01-hero.jpg`, `02-inside.jpg`, `03-size.jpg`, `04-how.jpg`
+## 06 · Monster Word Scramble
 
-## Title
+| Alan | Değer |
+|---|---|
+| Fiyat | **$1.99** (mağaza GBP ise **£1.49**) |
+| İndirim | %30 lansman (9–28 Ekim): $1.39 · %40 son 3 gün (29–31 Ekim): $1.19 |
+| SKU | HW26-06 |
+| Kategori | Kategori kutusuna "activity sheets" ya da "worksheets" yaz, çıkan öneriden Halloween/çocuk aktivitesine en yakını seç; yoksa "party games". |
+| Holiday | Halloween |
+| Type | Digital (Dijital dosyalar) |
+| Who made / What / When | I did / A finished product / En yeni aralık (2020–2026) |
+| Digital files | `monster-word-scramble-US-Letter.pdf` + `monster-word-scramble-A4.pdf` |
+| Quantity | 999 |
+| Shop section | Halloween Party Games |
+| Materials | digital PDF, US Letter, A4, printable |
+| Renewal | Automatic |
+| Personalization / Variations / Shipping | Kapalı / Yok / Yok (dijital ürün) |
+
+**Title**
 ```
 Halloween Word Scramble, Printable Unscramble Worksheet with Answer Key, Kids Classroom Activity, Halloween Party Game, Instant Download
 ```
-
-## Tags
+**Tags**
 ```
 word scramble, halloween worksheet, unscramble words, classroom activity, kids activity, halloween printable, word puzzle, kids worksheet, early finisher, halloween game, spelling activity, homeschool, quiet time activity
 ```
-
-## Description
+**Description**
 ```
 20 jumbled Halloween words to unscramble: a perfect quiet activity for parties and classrooms.
 
@@ -38,16 +51,21 @@ HOW IT WORKS
 ⚠ This is a DIGITAL product. Nothing will be shipped.
 
 ━━━━━━━━━━━━━━━━━━
-WANT MORE GAMES?
-━━━━━━━━━━━━━━━━━━
-This game is part of our 15 Halloween Party Games Bundle. Get all 15 games for one low price in our shop!
-
-━━━━━━━━━━━━━━━━━━
 TERMS OF USE
 ━━━━━━━━━━━━━━━━━━
 For personal, classroom and private party use. Print as many copies as you need for your own event.
 Please do not share, resell or redistribute the files.
-Because this is a digital download, refunds are not available, but if anything goes wrong, message us and we'll fix it fast!
+Because this is a digital download, refunds are not available, but if anything goes wrong, message me and I'll fix it fast!
 
-© Hollow Lantern Studio
+━━━━━━━━━━━━━━━━━━
+WANT MORE GAMES?
+━━━━━━━━━━━━━━━━━━
+This game is part of my 15 Halloween Party Games Bundle. Get all 15 games for one low price in my shop: CemEsmeroglo
+
+© CemEsmeroglo
 ```
+**Photos (bu sırayla) + alt text**
+1. `01-hero.jpg`: Monster Word Scramble printable Halloween game cover with sample pages
+2. `02-inside.jpg`: What's included in Monster Word Scramble: 20 scrambled Halloween words; Answer key
+3. `03-size.jpg`: Monster Word Scramble page printed full size on US Letter and A4 paper
+4. `04-how.jpg`: How the instant download works: buy, download, print and play

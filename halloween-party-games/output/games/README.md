@@ -36,5 +36,6 @@ Tek tek toplamı **$36.85**; bundle **$9.99**. Bu fark her tekli listing'in aç�
 - **Her şey İngilizce.** PDF'ler, görseller, başlıklar, etiketler ve açıklamalar. (Sadece bu README Türkçe, senin için.)
 - **Kâğıt boyutu:** Her sayfa tam bir US Letter ya da A4 kâğıdı boyutunda basılır. Müşteriye bunu göstermek için her ürünün 3. fotoğrafı (`03-size.jpg`) "Prints on a full sheet of paper" görseli.
 - **Kupon:** Her PDF'in son sayfasında **THANKYOU20** (%20) kodu var. Etsy'de *Marketing › Sales and discounts* bölümünden bu kuponu oluştur.
-- **Mağaza linki:** Son sayfada `[YOUR ETSY SHOP LINK]` yazıyor. Linki verince PDF'leri yeniden üretebilirim.
+- **Mağaza:** PDF'lerde marka ve link `CemEsmeroglo` / `etsy.com/shop/CemEsmeroglo`.
+- **Tüm alanlar:** `../ETSY-LISTINGS.html` (kopyala düğmeli) ya da `../ETSY-LISTINGS.md`.
 - **Etsy Ads:** Bütçeyi önce en geniş kitleli 3 ürüne ver: **Picture Bingo, Trivia, Charades**. Bundle'a da ver.

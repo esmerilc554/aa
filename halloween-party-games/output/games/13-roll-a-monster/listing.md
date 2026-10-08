@@ -1,19 +1,32 @@
-# Roll a Monster: Etsy listing
+# Etsy listing (CemEsmeroglo)
 
-**Price:** $1.99 · **Pages:** 3 · **Files to upload:** `roll-a-monster-US-Letter.pdf` + `roll-a-monster-A4.pdf`
-**Photos (in this order):** `etsy-images/01-hero.jpg`, `02-inside.jpg`, `03-size.jpg`, `04-how.jpg`
+## 13 · Roll a Monster
 
-## Title
+| Alan | Değer |
+|---|---|
+| Fiyat | **$1.99** (mağaza GBP ise **£1.49**) |
+| İndirim | %30 lansman (9–28 Ekim): $1.39 · %40 son 3 gün (29–31 Ekim): $1.19 |
+| SKU | HW26-13 |
+| Kategori | Kategori kutusuna "activity sheets" ya da "worksheets" yaz, çıkan öneriden Halloween/çocuk aktivitesine en yakını seç; yoksa "party games". |
+| Holiday | Halloween |
+| Type | Digital (Dijital dosyalar) |
+| Who made / What / When | I did / A finished product / En yeni aralık (2020–2026) |
+| Digital files | `roll-a-monster-US-Letter.pdf` + `roll-a-monster-A4.pdf` |
+| Quantity | 999 |
+| Shop section | Halloween Party Games |
+| Materials | digital PDF, US Letter, A4, printable |
+| Renewal | Automatic |
+| Personalization / Variations / Shipping | Kapalı / Yok / Yok (dijital ürün) |
+
+**Title**
 ```
 Roll a Monster Drawing Game, Halloween Dice Game for Kids, Printable Classroom Art Activity, Halloween Party, Instant Download
 ```
-
-## Tags
+**Tags**
 ```
 roll a monster, dice game, drawing game, kids art activity, halloween activity, classroom activity, monster drawing, kids printable, halloween party, art lesson, preschool activity, rainy day activity, homeschool art
 ```
-
-## Description
+**Description**
 ```
 Roll a die six times and draw the silly monster the dice create. No two monsters are ever the same!
 
@@ -38,16 +51,21 @@ HOW IT WORKS
 ⚠ This is a DIGITAL product. Nothing will be shipped.
 
 ━━━━━━━━━━━━━━━━━━
-WANT MORE GAMES?
-━━━━━━━━━━━━━━━━━━
-This game is part of our 15 Halloween Party Games Bundle. Get all 15 games for one low price in our shop!
-
-━━━━━━━━━━━━━━━━━━
 TERMS OF USE
 ━━━━━━━━━━━━━━━━━━
 For personal, classroom and private party use. Print as many copies as you need for your own event.
 Please do not share, resell or redistribute the files.
-Because this is a digital download, refunds are not available, but if anything goes wrong, message us and we'll fix it fast!
+Because this is a digital download, refunds are not available, but if anything goes wrong, message me and I'll fix it fast!
 
-© Hollow Lantern Studio
+━━━━━━━━━━━━━━━━━━
+WANT MORE GAMES?
+━━━━━━━━━━━━━━━━━━
+This game is part of my 15 Halloween Party Games Bundle. Get all 15 games for one low price in my shop: CemEsmeroglo
+
+© CemEsmeroglo
 ```
+**Photos (bu sırayla) + alt text**
+1. `01-hero.jpg`: Roll a Monster printable Halloween game cover with sample pages
+2. `02-inside.jpg`: What's included in Roll a Monster: Dice chart: body, eyes, mouth, arms, legs, extras; Big drawing frame on the same page
+3. `03-size.jpg`: Roll a Monster page printed full size on US Letter and A4 paper
+4. `04-how.jpg`: How the instant download works: buy, download, print and play

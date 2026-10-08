@@ -8,6 +8,9 @@ import { ICONS, icon } from './icons.mjs';
 import * as C from './content.mjs';
 import { GAMES_META } from './games-meta.mjs';
 
+const SHOP = 'CemEsmeroglo';
+const SHOP_URL = 'etsy.com/shop/CemEsmeroglo';
+
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'output');
 mkdirSync(OUT, { recursive: true });
@@ -327,16 +330,16 @@ function thanksPage(single) {
   const more = single
     ? `<div class="more"><div class="sec-t">More Halloween party games in our shop</div>
       <div class="grid g3 mgrid">${games.filter((g) => g.n !== single).map((g) => `<div class="mcard"><b>${esc(GAMES_META[g.n].name)}</b></div>`).join('')}</div>
-      <div class="mcard" style="text-align:center;margin-top:2mm"><b>Want them all? Get the 15 Halloween Party Games Bundle</b><span>Hollow Lantern Studio · [YOUR ETSY SHOP LINK]</span></div></div>`
+      <div class="mcard" style="text-align:center;margin-top:2mm"><b>Want them all? Get the 15 Halloween Party Games Bundle</b><span>${SHOP_URL}</span></div></div>`
     : `<div class="more"><div class="sec-t">Find more Halloween printables in our Etsy shop</div>
-      <div class="mcard" style="text-align:center"><b>Hollow Lantern Studio</b><span>[YOUR ETSY SHOP LINK]</span></div></div>`;
+      <div class="mcard" style="text-align:center"><b>${SHOP}</b><span>${SHOP_URL}</span></div></div>`;
   return `<div class="thanks">${icon('Pumpkin', single ? 80 : 110)}
   <h1>Thank you for partying with us!</h1>
   <p>We hope your guests laughed, screamed and ate way too much candy.</p>
   <div class="coupon"><div>Your next order</div><div class="cpn">20% OFF</div><div>Use code <b>THANKYOU20</b> at checkout</div></div>
   ${more}
   <p class="small">Loved it? A quick review on Etsy helps our small shop more than you know.<br>
-  © Hollow Lantern Studio. For personal, classroom and private party use. Please do not share or resell the files.</p></div>`;
+  © ${SHOP}. For personal, classroom and private party use. Please do not share or resell the files.</p></div>`;
 }
 const thanksIdx = pages.length;
 page(thanksPage(null));
@@ -351,7 +354,7 @@ const cover = `<div class="cover">
   <div class="cv-t">Halloween<br>Party Games</div>
   <div class="cv-s">One printable bundle for kids, teens, grown-ups, classrooms &amp; office parties</div>
   <div class="cv-icons">${['Pumpkin', 'Ghost', 'Bat', 'Witch Hat', 'Candy Corn', 'Black Cat', 'Skull'].map((k) => icon(k, 64)).join('')}</div>
-  <div class="cv-f">Hollow Lantern Studio</div>
+  <div class="cv-f">${SHOP} on Etsy</div>
 </div>`;
 
 const welcome = `${header(0, 'Welcome to the party!', '', 'Everything you need to host a Halloween party everyone remembers')}
@@ -535,7 +538,7 @@ function html(docPages, size, product) {
   let pn = 0;
   const body = docPages.map((p) => {
     pn++;
-    const foot = p.cls === 'p-cover' ? '' : `<div class="foot"><span>Hollow Lantern Studio · ${esc(product)}</span><span>${pn}</span></div>`;
+    const foot = p.cls === 'p-cover' ? '' : `<div class="foot"><span>${SHOP} · ${esc(product)}</span><span>${pn}</span></div>`;
     return `<section class="page ${p.cls || ''}">${p.body}${foot}</section>`;
   }).join('\n');
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${esc(product)}</title>
@@ -552,7 +555,7 @@ function gameCover(g, m, pageCount) {
   <div class="cv-s">${esc(m.hook)}</div>
   <div class="cv-pills">${g.ages.split('').map((a) => `<span>${AGE[a]}</span>`).join('')}<span>${pageCount} pages</span></div>
   <div class="cv-inc">${m.includes.map((t) => `<div>${esc(t)}</div>`).join('')}</div>
-  <div class="cv-f">Hollow Lantern Studio</div>
+  <div class="cv-f">${SHOP} on Etsy</div>
 </div>`;
 }
 
@@ -564,62 +567,6 @@ function singleDoc(g) {
   const extra = [...(SINGLE_KEYS[g.n] || []), ...(SINGLE_SCORE.has(g.n) ? [teamScore] : [])].map((b) => ({ body: b }));
   const count = 1 + body.length + extra.length + 1;
   return { m, pages: [{ body: gameCover(g, m, count), cls: 'p-cover' }, ...body, ...extra, { body: thanksPage(g.n) }] };
-}
-
-function listingMd(g, m, count) {
-  return `# ${m.name}: Etsy listing
-
-**Price:** $${m.price} · **Pages:** ${count} · **Files to upload:** \`${m.slug}-US-Letter.pdf\` + \`${m.slug}-A4.pdf\`
-**Photos (in this order):** \`etsy-images/01-hero.jpg\`, \`02-inside.jpg\`, \`03-size.jpg\`, \`04-how.jpg\`
-
-## Title
-\`\`\`
-${m.title}
-\`\`\`
-
-## Tags
-\`\`\`
-${m.tags.join(', ')}
-\`\`\`
-
-## Description
-\`\`\`
-${m.hook}
-
-━━━━━━━━━━━━━━━━━━
-WHAT'S INCLUDED (${count} pages)
-━━━━━━━━━━━━━━━━━━
-${m.includes.map((t) => `✔ ${t}`).join('\n')}
-✔ Easy "How to play" rules on the page
-✔ US Letter AND A4 files
-
-Ages: ${g.ages.split('').map((a) => AGE[a]).join(', ')}
-
-━━━━━━━━━━━━━━━━━━
-HOW IT WORKS
-━━━━━━━━━━━━━━━━━━
-1. Purchase
-2. Download the PDF instantly (Etsy > Purchases and reviews)
-3. Print at home or at a print shop. Every page prints full size on US Letter or A4 paper.
-4. Cut out the cards (if any) and play!
-
-⚠ This is a DIGITAL product. Nothing will be shipped.
-
-━━━━━━━━━━━━━━━━━━
-WANT MORE GAMES?
-━━━━━━━━━━━━━━━━━━
-This game is part of our 15 Halloween Party Games Bundle. Get all 15 games for one low price in our shop!
-
-━━━━━━━━━━━━━━━━━━
-TERMS OF USE
-━━━━━━━━━━━━━━━━━━
-For personal, classroom and private party use. Print as many copies as you need for your own event.
-Please do not share, resell or redistribute the files.
-Because this is a digital download, refunds are not available, but if anything goes wrong, message us and we'll fix it fast!
-
-© Hollow Lantern Studio
-\`\`\`
-`;
 }
 
 async function render(browser, docPages, product, outBase) {
@@ -643,7 +590,6 @@ for (const g of games) {
   const dir = join(OUT, 'games', `${String(g.n).padStart(2, '0')}-${m.slug}`);
   mkdirSync(dir, { recursive: true });
   await render(browser, doc, m.name, join(dir, m.slug));
-  writeFileSync(join(dir, 'listing.md'), listingMd(g, m, doc.length));
   writeFileSync(join(dir, 'info.json'), JSON.stringify({ n: g.n, ages: g.ages, pages: doc.length, ...m }, null, 2));
 }
 await browser.close();

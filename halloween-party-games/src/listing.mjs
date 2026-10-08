@@ -186,7 +186,7 @@ const AGE = { K: 'Kids', T: 'Teens', A: 'Adults' };
 const sp = (slug, n, rot = 0, w = 300, extra = '') =>
   `<img class="pg" src="_pages/${slug}/p${String(n).padStart(2, '0')}.png" style="width:${w}px;transform:rotate(${rot}deg);${extra}">`;
 const gamesDir = join(ROOT, 'output', 'games');
-for (const dir of readdirSync(gamesDir).sort()) {
+for (const dir of readdirSync(gamesDir).filter((d) => /^\d\d-/.test(d)).sort()) {
   const info = JSON.parse(readFileSync(join(gamesDir, dir, 'info.json'), 'utf8'));
   const { slug, name, pages: count, ages, includes, hook } = info;
   const imgDir = join(gamesDir, dir, 'etsy-images');

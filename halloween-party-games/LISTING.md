@@ -1,5 +1,7 @@
 # 15 Halloween Party Games: Etsy listing kit
 
+> Tüm 16 listing için eksiksiz alan listesi (fiyat, kategori, SKU, fotoğraf alt metinleri dahil): [`output/ETSY-LISTINGS.md`](output/ETSY-LISTINGS.md) / `output/ETSY-LISTINGS.html`.
+
 Satışa hazır dosyalar:
 
 | Dosya | Ne için |
@@ -90,7 +92,7 @@ For personal, classroom and private party use. You may print as many copies as y
 Please do not share, resell or redistribute the files.
 Because this is a digital download, refunds are not available, but if anything goes wrong, message us and we'll fix it fast!
 
-© Hollow Lantern Studio
+© CemEsmeroglo
 ```
 
 > Not: Emoji'leri istersen sil. Etsy açıklamasında sorun çıkarmaz, sadece göz alıcı.
