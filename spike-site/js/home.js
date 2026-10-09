@@ -54,24 +54,11 @@ const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   })();
 }
 
-// Product cards: one shared renderer drawing into each card's 2D canvas would be ideal;
-// for 6 items, a small renderer per card is fine.
+// Product cards: real store photos
 const grid = document.getElementById('productGrid');
 for (const p of products) {
   const a = document.createElement('a');
   a.className = 'card'; a.href = `product.html?p=${p.slug}`;
-  a.innerHTML = `<canvas aria-hidden="true"></canvas><div class="info"><div class="brand">${p.brand}</div><h3>${p.name}</h3><div class="price">€${p.price.toFixed(2)}</div></div>`;
+  a.innerHTML = `<div class="ph"><img src="${p.img}" alt="${p.name} – ${p.brand}" loading="lazy" width="1024" height="1024"></div><div class="info"><div class="brand">${p.brand}</div><h3>${p.name}</h3><div class="price">€${p.price.toFixed(2)}</div></div>`;
   grid.appendChild(a);
-  const canvas = a.querySelector('canvas');
-  const renderer = makeRenderer(canvas);
-  const scene = new THREE.Scene(); addLights(scene);
-  const cam = new THREE.PerspectiveCamera(35, 1, 0.1, 50); cam.position.set(0, 0.8, 6.5); cam.lookAt(0, 0, 0);
-  const shoe = createSneaker(p.colors); scene.add(shoe);
-  let hover = false; a.onpointerenter = () => hover = true; a.onpointerleave = () => hover = false;
-  let rot = 0.6;
-  (function loop() {
-    fit(renderer, cam, canvas);
-    rot += hover ? 0.04 : 0.006; shoe.rotation.y = rot;
-    renderer.render(scene, cam); requestAnimationFrame(loop);
-  })();
 }
