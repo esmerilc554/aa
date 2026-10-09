@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ORA — Saat, Çanta, Ayakkabı</title>
+<meta name="description" content="ORA: el yapımı deri çanta, mekanik kol saati ve el işçiliği ayakkabı koleksiyonu.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="is-loading">
+
+<div class="curtain" aria-hidden="true">
+  <div class="curtain__panel"></div>
+  <div class="curtain__panel"></div>
+  <div class="curtain__panel"></div>
+  <div class="curtain__panel"></div>
+  <div class="curtain__word"><span>O</span><span>R</span><span>A</span></div>
+  <div class="curtain__count"><b id="count">0</b>%</div>
+</div>
+
+<header class="nav">
+  <a href="#top" class="logo">ORA</a>
+  <nav>
+    <a href="#koleksiyon">Koleksiyon</a>
+    <a href="#hikaye">Hikâye</a>
+    <a href="#iletisim">İletişim</a>
+  </nav>
+  <button class="cartbtn" id="cartBtn">Sepet <span id="cartCount">0</span></button>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero__text">
+      <p class="eyebrow reveal-line"><span>Sonbahar · Kış 2026</span></p>
+      <h1 class="split">
+        <span class="line"><span>Zamana</span></span>
+        <span class="line"><span><em>dayanan</em></span></span>
+        <span class="line"><span>şeyler.</span></span>
+      </h1>
+      <p class="hero__lead reveal-line"><span>Üç usta, üç zanaat: deri çanta, mekanik saat ve el dikimi ayakkabı. Az üretir, uzun yaşatırız.</span></p>
+      <a href="#koleksiyon" class="btn reveal-line"><span>Koleksiyonu keşfet</span></a>
+    </div>
+    <div class="hero__media">
+      <figure class="ph clip a" data-name="Çanta" data-tone="#b4553a"><img src="images/hero-canta.jpg" alt="Deri omuz çantası" loading="eager"></figure>
+      <figure class="ph clip b" data-name="Saat" data-tone="#2f3b36"><img src="images/hero-saat.jpg" alt="Mekanik kol saati" loading="eager"></figure>
+      <figure class="ph clip c" data-name="Ayakkabı" data-tone="#c9b79c"><img src="images/hero-ayakkabi.jpg" alt="Deri ayakkabı" loading="eager"></figure>
+      <div class="spin" aria-hidden="true">
+        <svg viewBox="0 0 120 120"><defs><path id="c" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs><text><textPath href="#c">EL YAPIMI · EL YAPIMI · EL YAPIMI · </textPath></text></svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>Saat</span><i>✦</i><span>Çanta</span><i>✦</i><span>Ayakkabı</span><i>✦</i><span>Ücretsiz kargo</span><i>✦</i><span>2 yıl garanti</span><i>✦</i>
+      <span>Saat</span><i>✦</i><span>Çanta</span><i>✦</i><span>Ayakkabı</span><i>✦</i><span>Ücretsiz kargo</span><i>✦</i><span>2 yıl garanti</span><i>✦</i>
+    </div>
+  </div>
+
+  <section class="shop" id="koleksiyon">
+    <div class="shop__head">
+      <h2 class="split"><span class="line"><span>Koleksiyon</span></span></h2>
+      <div class="filters" role="tablist">
+        <button class="on" data-f="all">Hepsi</button>
+        <button data-f="saat">Saat</button>
+        <button data-f="canta">Çanta</button>
+        <button data-f="ayakkabi">Ayakkabı</button>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="story" id="hikaye">
+    <div class="story__img ph clip" data-name="Atölye" data-tone="#40362e"><img src="images/atolye.jpg" alt="Deri atölyesinde çalışan usta" loading="lazy"></div>
+    <div class="story__text">
+      <p class="eyebrow">Hikâyemiz</p>
+      <h2 class="fade">Hızlı moda değil, <em>yavaş zanaat.</em></h2>
+      <p class="fade">Her ORA ürünü İstanbul ve Bursa'daki küçük atölyelerde, tek bir ustanın elinden geçer. Tam tahıllı İtalyan derisi, İsviçre hareketli saat mekanizmaları, Goodyear kaynaklı tabanlar.</p>
+      <div class="stats">
+        <div class="fade"><b data-n="14">0</b><span>yıllık atölye</span></div>
+        <div class="fade"><b data-n="38">0</b><span>usta</span></div>
+        <div class="fade"><b data-n="100" data-s="%">0</b><span>el işçiliği</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="iletisim">
+    <h2 class="split"><span class="line"><span>Bültene katıl,</span></span><span class="line"><span><em>ilk sen gör.</em></span></span></h2>
+    <form id="news" class="fade">
+      <input type="email" required placeholder="E-posta adresin" aria-label="E-posta">
+      <button class="btn dark" type="submit"><span>Kaydol</span></button>
+    </form>
+    <p id="newsMsg" class="msg" role="status"></p>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>© 2026 ORA. Tüm hakları saklıdır.</span>
+  <span>İstanbul · Bursa</span>
+</footer>
+
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer__bg" id="drawerBg"></div>
+  <div class="drawer__panel">
+    <div class="drawer__top"><h3>Sepetin</h3><button id="drawerClose" aria-label="Kapat">✕</button></div>
+    <ul id="cartList"></ul>
+    <div class="drawer__foot"><span>Toplam</span><b id="cartTotal">₺0</b></div>
+    <button class="btn dark full" id="checkout"><span>Ödemeye geç</span></button>
+  </div>
+</aside>
+
+<script src="main.js"></script>
+</body>
+</html>
