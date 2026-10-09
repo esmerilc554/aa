@@ -1,0 +1,8 @@
+# SPIKE
+
+> Sneaker and streetwear store in Nicosia (Lefkoşa), Cyprus, operating since 2003. Sells authentic footwear (Jordan, Puma, Reebok, DC Shoes), apparel, headwear, bags, skateboards and shoe care. Online orders delivered across Cyprus.
+
+- [Home](https://spike.com.cy/): store overview, featured products, FAQ, location
+- [Footwear](https://spike.com.cy/product-category/footwear/)
+- [Apparel](https://spike.com.cy/product-category/apparel/)
+- Contact: info@spike.com.cy · Instagram @spikeofficialcy
