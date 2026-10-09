@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ürün | SPIKE Lefkoşa</title>
+<meta name="description" content="Orijinal sneaker – 360° inceleyin, numaranızı seçin ve sipariş verin. SPIKE Lefkoşa, 2003'ten beri.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header><div class="wrap">
+  <a class="logo" href="index.html">SPIKE</a>
+  <nav aria-label="Ana menü"><ul><li><a href="index.html#urunler">Ürünler</a></li><li><a href="index.html#iletisim">Mağaza</a></li></ul></nav>
+  <span></span>
+</div></header>
+<main>
+<div class="stage" id="stage">
+  <div class="sticky">
+    <canvas id="product3d" aria-label="Ürünün 3D modeli; kaydırdıkça döner"></canvas>
+    <div class="panel">
+      <div class="crumbs"><a href="index.html">Ana sayfa</a> / Ayakkabı</div>
+      <div class="brand" id="brand" style="color:var(--muted);text-transform:uppercase;letter-spacing:.08em"></div>
+      <h1 id="name"></h1>
+      <p class="price" id="price" style="font-size:1.6rem;margin-top:8px"></p>
+      <span class="view-label" id="view">Yan görünüm</span>
+      <div class="sizes" id="sizes"></div>
+      <button class="btn" id="order">Sipariş ver</button>
+      <p class="hint">Aşağı kaydırın: ayakkabı döner – yan, ön, arka, diğer yan ve taban.</p>
+      <div class="progress"><i id="bar"></i></div>
+    </div>
+  </div>
+</div>
+<section><div class="wrap">
+  <h2>Ürün detayları</h2>
+  <p style="color:var(--muted);max-width:700px">Orijinal ürün, SPIKE garantisiyle. Mağazamızda deneyebilir veya Kıbrıs geneline kargo ile sipariş verebilirsiniz. Numara konusunda emin değilseniz ekibimize yazın.</p>
+</div></section>
+</main>
+<script type="module" src="js/product.js"></script>
+</body>
+</html>

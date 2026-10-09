@@ -1,0 +1,65 @@
+:root{--bg:#0d0d0f;--fg:#f4f4f4;--muted:#a3a3ad;--red:#e3262f;--card:#18181c;--line:#2a2a30}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;z-index:20;background:rgba(13,13,15,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-weight:900;font-size:1.6rem;letter-spacing:.08em;color:var(--red)}
+nav ul{display:flex;gap:22px;list-style:none;font-size:.95rem}
+nav a:hover{color:var(--red)}
+.lang{font-size:.85rem;color:var(--muted)}
+.hero{position:relative;height:calc(100vh - 64px);min-height:520px;overflow:hidden}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%}
+.hero .copy{position:relative;z-index:2;max-width:560px;padding-top:12vh}
+.hero h1{font-size:clamp(2rem,5vw,3.6rem);line-height:1.08;font-weight:900}
+.hero h1 span{color:var(--red)}
+.hero p{color:var(--muted);margin:18px 0 28px;font-size:1.1rem}
+.btn{display:inline-block;background:var(--red);color:#fff;padding:14px 26px;border-radius:999px;font-weight:700;border:0;cursor:pointer;font-size:1rem}
+.btn.ghost{background:transparent;border:1px solid var(--line);margin-left:8px}
+section{padding:80px 0}
+h2{font-size:clamp(1.6rem,3vw,2.3rem);margin-bottom:24px}
+h3{font-size:1.1rem}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-4px);border-color:var(--red)}
+.card canvas{width:100%;height:220px;display:block;background:radial-gradient(circle at 50% 60%,#26262d,#141417)}
+.card .info{padding:14px 16px}
+.card .brand{color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.08em}
+.price{color:var(--red);font-weight:800}
+.cats{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+.cats a{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 16px;font-weight:700}
+.cats a small{display:block;color:var(--muted);font-weight:400;margin-top:4px}
+.about{display:grid;gap:40px;grid-template-columns:1fr 1fr;align-items:center}
+.stats{display:flex;gap:30px;margin-top:20px}
+.stats b{display:block;font-size:2rem;color:var(--red)}
+details{border-bottom:1px solid var(--line);padding:16px 0}
+summary{cursor:pointer;font-weight:700}
+details p{color:var(--muted);margin-top:8px}
+.contact{display:grid;gap:30px;grid-template-columns:1fr 1.3fr}
+.map{min-height:320px;border-radius:16px;border:1px dashed var(--red);display:grid;place-items:center;color:var(--muted);text-align:center;padding:20px}
+.todo{background:#3a1d1f;color:#ffb4b4;padding:1px 6px;border-radius:4px;font-size:.85em}
+footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:.9rem}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px}
+/* Product page */
+.stage{height:400vh;position:relative}
+.stage .sticky{position:sticky;top:64px;height:calc(100vh - 64px);display:grid;grid-template-columns:1.4fr 1fr;align-items:center}
+.stage canvas{width:100%;height:100%}
+.panel{padding:30px}
+.panel h1{font-size:clamp(1.8rem,3.5vw,2.8rem);line-height:1.1}
+.view-label{display:inline-block;margin:14px 0;padding:6px 14px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:.9rem}
+.sizes{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+.sizes button{background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;cursor:pointer}
+.sizes button.on{border-color:var(--red);color:var(--red)}
+.progress{height:3px;background:var(--line);margin-top:18px}
+.progress i{display:block;height:100%;background:var(--red);width:0}
+.hint{color:var(--muted);font-size:.85rem;margin-top:8px}
+.crumbs{color:var(--muted);font-size:.85rem;margin-bottom:10px}
+@media (max-width:800px){
+  nav ul{display:none}
+  .about,.contact{grid-template-columns:1fr}
+  .stage .sticky{grid-template-columns:1fr;grid-template-rows:55% 45%}
+  .panel{padding:16px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
