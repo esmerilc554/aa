@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lüna Moda – Kadın & Erkek Giyim</title>
+<meta name="description" content="Lüna Moda: yeni sezon kadın ve erkek giyim, şık ve rahat kombinler.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="announce">Tüm siparişlerde ücretsiz kargo · 14 gün koşulsuz iade</div>
+
+<header class="nav" id="nav">
+  <a class="logo" href="#top">LÜNA<span>.</span></a>
+  <nav class="menu" id="menu" aria-label="Ana menü">
+    <a href="#koleksiyon">Koleksiyon</a>
+    <a href="#urunler">Ürünler</a>
+    <a href="#lookbook">Lookbook</a>
+    <a href="#bulten">İletişim</a>
+  </nav>
+  <div class="nav-actions">
+    <button class="cart-btn" id="cartBtn" aria-label="Sepeti aç">Sepet <b id="cartCount">0</b></button>
+    <button class="burger" id="burger" aria-label="Menü" aria-expanded="false"><i></i><i></i></button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero-text">
+      <p class="eyebrow reveal">Yeni Sezon 2026</p>
+      <h1 class="reveal d1">Kendi tarzını <em>giy.</em></h1>
+      <p class="lead reveal d2">Zamansız kesimler, yumuşak dokular ve her güne uyan kombinler.</p>
+      <div class="reveal d3">
+        <a class="btn" href="#urunler">Alışverişe Başla</a>
+        <a class="btn ghost" href="#lookbook">Lookbook</a>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="blob b1"></div><div class="blob b2"></div>
+      <div class="card-float c1"><span>Yeni</span>Keten Gömlek</div>
+      <div class="card-float c2"><span>%20</span>Sezon İndirimi</div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div class="track">
+    <span>ELBİSE</span><span>CEKET</span><span>PANTOLON</span><span>GÖMLEK</span><span>TRİKO</span><span>AKSESUAR</span>
+    <span>ELBİSE</span><span>CEKET</span><span>PANTOLON</span><span>GÖMLEK</span><span>TRİKO</span><span>AKSESUAR</span>
+  </div></div>
+
+  <section class="section" id="koleksiyon">
+    <h2 class="reveal">Koleksiyonlar</h2>
+    <div class="cats">
+      <a href="#urunler" data-filter="kadin" class="cat reveal" style="--c:#e9c9c0"><b>Kadın</b><small>Elbise, bluz, etek</small></a>
+      <a href="#urunler" data-filter="erkek" class="cat reveal d1" style="--c:#c5d1c4"><b>Erkek</b><small>Gömlek, pantolon, ceket</small></a>
+      <a href="#urunler" data-filter="aksesuar" class="cat reveal d2" style="--c:#d9cfb8"><b>Aksesuar</b><small>Çanta, kemer, atkı</small></a>
+    </div>
+  </section>
+
+  <section class="section" id="urunler">
+    <h2 class="reveal">Öne Çıkanlar</h2>
+    <div class="filters reveal" id="filters" role="tablist">
+      <button class="chip on" data-filter="hepsi">Hepsi</button>
+      <button class="chip" data-filter="kadin">Kadın</button>
+      <button class="chip" data-filter="erkek">Erkek</button>
+      <button class="chip" data-filter="aksesuar">Aksesuar</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="section lookbook" id="lookbook">
+    <h2 class="reveal">Lookbook</h2>
+    <div class="look">
+      <div class="look-card reveal" style="--a:#e9c9c0;--b:#b98a7a"><p>Hafta sonu<br><b>Rahat Şıklık</b></p></div>
+      <div class="look-card reveal d1" style="--a:#c5d1c4;--b:#6f8a74"><p>Ofis<br><b>Sade Zarafet</b></p></div>
+      <div class="look-card reveal d2" style="--a:#cfd6e4;--b:#6a7ca3"><p>Akşam<br><b>Gece Kombini</b></p></div>
+    </div>
+  </section>
+
+  <section class="section news" id="bulten">
+    <h2 class="reveal">İlk indirimden haberdar ol</h2>
+    <form class="reveal d1" id="newsForm">
+      <input type="email" id="email" placeholder="E-posta adresin" required aria-label="E-posta">
+      <button class="btn" type="submit">Abone Ol</button>
+    </form>
+    <p class="note" id="newsNote" role="status"></p>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="logo">LÜNA<span>.</span></div>
+  <p>© 2026 Lüna Moda · Tüm hakları saklıdır.</p>
+</footer>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="Sepet" aria-hidden="true">
+  <div class="drawer-head"><h3>Sepetin</h3><button id="closeCart" aria-label="Kapat">✕</button></div>
+  <ul id="cartList"></ul>
+  <div class="drawer-foot">
+    <div class="total"><span>Toplam</span><b id="cartTotal">₺0</b></div>
+    <button class="btn full" id="checkout">Siparişi Tamamla</button>
+  </div>
+</aside>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
