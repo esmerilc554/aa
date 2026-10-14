@@ -67,6 +67,12 @@ function renderCart() {
     return `<li><div>${p.name}<small>${i.size ? 'Beden ' + i.size + ' · ' : ''}${fmt(p.price)}</small></div>
       <div class="qty"><button data-dec="${k}" aria-label="Azalt">−</button><span>${i.qty}</span><button data-inc="${k}" aria-label="Artır">+</button></div></li>`;
   }).join('') : '<p class="empty">Sepetin şu an boş.</p>';
+  const lines = cart.map(i => {
+    const p = PRODUCTS.find(p => p.id === i.id);
+    return `• ${p.name}${i.size ? ' (' + i.size + ')' : ''} x${i.qty} – ${fmt(p.price * i.qty)}`;
+  });
+  const msg = `Merhaba, sipariş vermek istiyorum:\n${lines.join('\n')}\nToplam: ${fmt(total)}`;
+  $('#checkout').href = cart.length ? `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}` : '#';
   save();
 }
 
@@ -113,15 +119,9 @@ document.querySelectorAll('.cat').forEach(c => c.addEventListener('click', () =>
 $('#cartBtn').onclick = () => drawer(true);
 $('#closeCart').onclick = $('#overlay').onclick = () => drawer(false);
 document.addEventListener('keydown', e => e.key === 'Escape' && drawer(false));
-$('#checkout').onclick = () => {
-  if (!cart.length) return toast('Sepet boş');
-  const lines = cart.map(i => {
-    const p = PRODUCTS.find(p => p.id === i.id);
-    return `• ${p.name}${i.size ? ' (' + i.size + ')' : ''} x${i.qty} – ${fmt(p.price * i.qty)}`;
-  });
-  const msg = `Merhaba, sipariş vermek istiyorum:\n${lines.join('\n')}\nToplam: ${$('#cartTotal').textContent}`;
-  window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
-  cart = []; renderCart(); drawer(false); toast('Sipariş WhatsApp\'a aktarıldı 🎉');
+$('#checkout').onclick = e => {
+  if (!cart.length) { e.preventDefault(); return toast('Sepet boş'); }
+  drawer(false); toast('WhatsApp açılıyor…');
 };
 $('#newsForm').addEventListener('submit', e => {
   e.preventDefault(); $('#newsNote').textContent = 'Teşekkürler! Yeni koleksiyonlardan ilk sen haberdar olacaksın.'; e.target.reset();
@@ -133,8 +133,11 @@ $('#menu').addEventListener('click', () => { $('#menu').classList.remove('open')
 addEventListener('scroll', () => $('#nav').classList.toggle('scrolled', scrollY > 10), { passive: true });
 
 const io = new IntersectionObserver(es => es.forEach(en => {
-  if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+  if (en.isIntersecting) { en.target.classList.remove('pre'); io.unobserve(en.target); }
 }), { threshold: .15 });
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+document.querySelectorAll('.reveal').forEach(el => {
+  if (el.closest('.hero') || el.getBoundingClientRect().top < innerHeight) return;
+  el.classList.add('pre'); io.observe(el);
+});
 
 renderGrid(); renderCart();
