@@ -58,11 +58,16 @@
 
   <section class="section" id="urunler">
     <h2 class="reveal">Öne Çıkanlar</h2>
-    <div class="filters reveal" id="filters" role="tablist">
+    <div class="toolbar reveal">
+    <div class="filters" id="filters" role="tablist">
       <button class="chip on" data-filter="hepsi">Hepsi</button>
       <button class="chip" data-filter="kadin">Kadın</button>
       <button class="chip" data-filter="erkek">Erkek</button>
       <button class="chip" data-filter="aksesuar">Aksesuar</button>
+    </div>
+    <label class="sort">Sırala
+      <select id="sort"><option value="">Önerilen</option><option value="asc">Fiyat: Artan</option><option value="desc">Fiyat: Azalan</option></select>
+    </label>
     </div>
     <div class="grid" id="grid"></div>
   </section>
@@ -97,7 +102,7 @@
   <ul id="cartList"></ul>
   <div class="drawer-foot">
     <div class="total"><span>Toplam</span><b id="cartTotal">₺0</b></div>
-    <button class="btn full" id="checkout">Siparişi Tamamla</button>
+    <button class="btn full" id="checkout">WhatsApp ile Sipariş Ver</button>
   </div>
 </aside>
 <div class="toast" id="toast" role="status"></div>

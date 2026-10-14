@@ -120,3 +120,14 @@ h1 em{color:var(--acc);font-style:italic}
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   .reveal{opacity:1;transform:none}
 }
+
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+.toolbar .filters{margin:0}
+.sort{font-size:14px;color:var(--mute);display:flex;align-items:center;gap:8px}
+.sort select{padding:7px 12px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit}
+.sizes{display:flex;gap:6px;padding:0 16px 4px;flex-wrap:wrap}
+.size{min-width:34px;height:30px;padding:0 8px;border:1px solid var(--line);border-radius:8px;font-size:13px;transition:all .2s}
+.size:hover{border-color:var(--ink)}.size.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.sizes.shake{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.product .info{padding-top:10px}
